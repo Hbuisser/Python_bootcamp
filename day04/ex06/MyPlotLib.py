@@ -19,7 +19,16 @@ class FileLoader:
 
 class MyPlotLib:
     def histogram(self, data, features):
-        pass
+        def histogram(self, data, features):
+            fig, axes = plt.subplots(nrow=1, ncol=len(features))
+            for ft in features :
+                ft = axes.flatten()
+                lst = list(data[ft])
+                arr = np.array([x for x in lst if ~np.isnan(x)])
+                ft.hist(arr, bins=8)
+                ft.set_tittle(ft)
+                ft.grid()
+            plt.show()
     def density(self, data, features):
         pass
     def pair_plot(self, data, features):
@@ -28,30 +37,27 @@ class MyPlotLib:
         pass
 
 if __name__ == "__main__":
-    kwargs = dict(alpha=0.8, bins=10)
+    # kwargs = dict(alpha=0.8, bins=10)
     path = "athlete_events.csv"
     fl = FileLoader()
     df = fl.load(path)
 
-    x = df['Height']
-    y = df['Weight']
+    # x = df['Height']
+    # y = df['Weight']
 
-    # test = plt.hist(x, bins= 10, color='b')
-    # plt.gca().set(title='Height')
-    # fig, axes = plt.subplots(1, 2, figsize=(10, 3), dpi=100)
-    # sns.distplot(x , bins=10, color="blue", ax=axes[0], axlabel='Height')
-    # sns.distplot(y , bins=10, color="blue", ax=axes[1], axlabel='Weight')
-    n_bins = 10
+    features = ['Height', 'Weight']
+    test = MyPlotLib()
+    test.histogram(df, features)
 
-    fig, axes = plt.subplots(nrows=1, ncols=2)
-    ax0, ax1= axes.flatten()
+    # fig, axes = plt.subplots(nrows=1, ncols=2)
+    # ax0, ax1= axes.flatten()
 
-    ax0.hist(x, **kwargs, density=True, histtype='bar', color='b')
-    ax0.set_title('Height')
-    ax0.grid()
+    # ax0.hist(x, **kwargs, density=True, histtype='bar', color='b')
+    # ax0.set_title('Height')
+    # ax0.grid()
 
-    ax1.hist(y, **kwargs, density=True, histtype='bar', color='b')
-    ax1.set_title('Weight')
-    ax1.grid()
+    # ax1.hist(y, **kwargs, density=True, histtype='bar', color='b')
+    # ax1.set_title('Weight')
+    # ax1.grid()
 
-    plt.show()
+    #plt.show()

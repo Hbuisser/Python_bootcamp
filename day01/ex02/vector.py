@@ -13,28 +13,51 @@ class Vector:
             return(print("ERROR"))
 
     def __add__(self, other):
-        #for i in self.values
-        return Vector()
+        if (type(other) == (int or float)):
+            return Vector(list([a + other for a in self.values]))
+        elif (type(other) == Vector):
+            return Vector([a + b for a, b in zip(self.values, other.values)])
 
     def __radd__(self, other):
-        # add : scalars and vectors, can have errors with vectors. 
-        return Length.__add__(self,other) 
+        return self + other
+
     def __sub__(self, other):
+        if (type(other) == (int or float)):
+            return Vector(list([a - other for a in self.values]))
+        elif (type(other) == Vector):
+            return Vector([a - b for a, b in zip(self.values, other.values)])
+
     def __rsub__(self, other):
-        # sub : scalars and vectors, can have errors with vectors. \
-        pass
+        if type(other) == (int or float):
+            return Vector([other - a for a in self.values])
+        elif (type(other) == Vector):
+            return Vector([b - a for a, b in zip(self.values, other.values)])
+
     def __truediv__(self, other):
-        pass
+        if (type(other) == (int or float)) and other == 0:
+            return (print("Cannot divide by 0!"))
+        elif (type(other) == int or type(other) == float):
+            return Vector([a / other for a in self.values])
+        elif (type(other) == Vector):
+            return (print("Cannot divide by a vector!"))
+
     def __rtruediv__(self, other):
-        # div : only scalars.
-        pass
+        return (print("Cannot divide by a vector!"))
+
     def __mul__(self, other):
-    def __rmul__(self, othert):
-    # mul : scalars and vectors, can have errors with vectors,
-    # return a scalar if we perform Vector * Vector (dot product) 
-    def __str__(self):
-        return "Values: %i, size: %i".format(self.values, self.size)
+        if (type(other) == int or type(other) == float):
+            return Vector([a * other for a in self.values])
+        elif (type(other) == Vector):
+            return sum([b * a for a, b in zip(self.values, other.values)])
+
+    def __rmul__(self, other):
+        return self * other
+
     def __repr__(self):
+        return f"(Vector {self.values})"
+
+    def __str__(self):
+        return self.__repr__()
 
 v0 = Vector(3)
 print("v0", v0)
